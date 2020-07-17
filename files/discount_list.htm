@@ -1,0 +1,23 @@
+{% IF promotion_campaign_empty %}
+  <div class="message attention">Акций в нашем магазине пока не проводилось</div>
+{% ELSE %}
+  <!-- Список акций -->
+  <div class="promotion_campaign products-grid">
+    {% FOR promotion_campaign %}
+      <div class="item">
+        <div class="image">
+          <a href="{promotion_campaign.URL | url_amp}" title="{promotion_campaign.NAME}">
+            <img class="goods-cat-image-medium" src="{ASSETS_IMAGES_PATH}discount{% IFNOT promotion_campaign.IS_WORK %}-off{% ENDIF %}.png?design=tobacco" alt="{promotion_campaign.NAME}" />
+            <div class="percentage">{promotion_campaign.PERCENTAGE} %</div>
+          </a>
+        </div>
+        <div class="date"><span>{promotion_campaign.BEGINNING_TIME | date("d.m.Y")}</span> - <span>{promotion_campaign.EXPIRED_TIME | date("d.m.Y")}</span></div>
+        <div class="name"><a href="{promotion_campaign.URL | url_amp}" title="{promotion_campaign.NAME}">{promotion_campaign.NAME}</a></div>
+        <div class="buttons">
+          {% IF promotion_campaign.DESCRIPTION_SHORT %}<div class="description_short">{promotion_campaign.DESCRIPTION_SHORT | nl2br}</div>{% ENDIF %}
+          <a href="{promotion_campaign.URL | url_amp}" class="button"><span>Подробнее</span></a>
+        </div>
+      </div>
+    {% ENDFOR promotion_campaign %}
+  </div>
+{% ENDIF %}
